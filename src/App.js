@@ -17,37 +17,19 @@ class App extends Component {
     ],
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.contacts !== prevState.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-    }
-  }
+  //   componentDidUpdate(prevProps, prevState) {
+  //     if (this.state.contacts !== prevState.contacts) {
+  //       localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+  //     }
+  //   }
 
-  componentDidMount() {
-    const contacts = localStorage.getItem('contacts');
-    const parsedContacts = JSON.parse(contacts);
-    if (parsedContacts) {
-      this.setState({ contacts: parsedContacts });
-    }
-  }
-
-  addContact = data => {
-    const newContact = data;
-
-    if (this.state.contacts.some(name => name.name === newContact.name))
-      return alert(`${newContact.name} is already in your contacts`);
-
-    newContact.id = uuidv4();
-    return this.setState(prevState => ({
-      contacts: [newContact, ...prevState.contacts],
-    }));
-  };
-
-  deleteContact = nameId => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(name => name.id !== nameId),
-    }));
-  };
+  //   componentDidMount() {
+  //     const contacts = localStorage.getItem('contacts');
+  //     const parsedContacts = JSON.parse(contacts);
+  //     if (parsedContacts) {
+  //       this.setState({ contacts: parsedContacts });
+  //     }
+  //   }
 
   changeFilter = event => {
     this.setState({ filter: event.currentTarget.value });
