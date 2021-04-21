@@ -16,6 +16,7 @@ class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
   };
+
   componentDidUpdate(prevProps, prevState) {
     if (this.state.contacts !== prevState.contacts) {
       localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
@@ -29,11 +30,6 @@ class App extends Component {
       this.setState({ contacts: parsedContacts });
     }
   }
-
-  gatheredData = data => {
-    const newData = data;
-    return newData;
-  };
 
   addContact = data => {
     const newContact = data;

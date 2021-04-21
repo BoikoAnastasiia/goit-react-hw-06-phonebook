@@ -1,40 +1,24 @@
-import React, { Component } from 'react';
+import styles from './Search.module.css';
 
-class Searchbar extends Component {
-  state = { query: '' };
+import propTypes from 'prop-types';
 
-  handleChange = e => {
-    this.setState({ query: e.currentTarget.value });
-  };
+const Search = ({ value, onChange }) => (
+  <div className={styles.container}>
+    <label className={styles.label}>
+      Phone book search
+      <input
+        type="text"
+        value={value}
+        onChange={onChange}
+        className={styles.input}
+      />
+    </label>
+  </div>
+);
 
-  handleSubmit = e => {
-    e.preventDefault();
+Search.propTypes = {
+  value: propTypes.string.isRequired,
+  onChange: propTypes.func.isRequired,
+};
 
-    this.props.onSubmit(this.state.query);
-    this.setState({ query: '' });
-  };
-
-  render() {
-    return (
-      <header className="Searchbar">
-        <form className="SearchForm" onSubmit={this.handleSubmit}>
-          <button type="submit" className="SearchForm-button">
-            <span className="SearchForm-button-label">Search</span>
-          </button>
-
-          <input
-            className="SearchForm-input"
-            value={this.state.query}
-            onChange={this.handleChange}
-            type="text"
-            autoComplete="off"
-            autoFocus
-            placeholder="Search for movies"
-          />
-        </form>
-      </header>
-    );
-  }
-}
-
-export default Searchbar;
+export default Search;
