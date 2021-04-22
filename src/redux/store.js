@@ -8,6 +8,7 @@ const initialState = {
     { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
     { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
   ],
+  search: '',
 };
 
 const contacts = (state = initialState, { type, payload }) => {
@@ -19,8 +20,9 @@ const contacts = (state = initialState, { type, payload }) => {
       return state.filter(({ id }) => id !== payload);
 
     case types.CHECK:
-      if (state.contacts.some(name => name.name === payload.name))
-        return alert(`${payload.name} is already in your contacts`);
+      return state.contacts.some(name => name.name === payload.name)
+        ? alert(`${payload.name} is already in your contacts`)
+        : null;
 
     default:
       return state;

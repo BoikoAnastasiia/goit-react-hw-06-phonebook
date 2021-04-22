@@ -6,7 +6,14 @@ import Search from './Components/Search';
 import { connect } from 'react-redux';
 import * as actions from '../src/redux/contacts/contacts.actions';
 
-const App = (addContact, deleteContact) => (
+const App = (
+  addContact,
+  deleteContact,
+  denyDouble,
+  changeFilter,
+  filteredNames,
+  search,
+) => (
   //   componentDidUpdate(prevProps, prevState) {
   //     if (this.state.contacts !== prevState.contacts) {
   //       localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
@@ -41,23 +48,37 @@ const App = (addContact, deleteContact) => (
   // return (
   <Container>
     <PhoneBookForm
-      onSubmit={this.addContact}
-      onAdd={this.addContact}
-      onDouble={this.denyDouble}
+      onSubmit={addContact}
+      onAdd={addContact}
+      onDouble={denyDouble}
     />
-    <Search value={filter} onChange={this.changeFilter} />
-    <ContactsList contacts={filteredNames} onDelete={this.deleteContact} />
+    <Search value={search} onChange={changeFilter} />
+    <ContactsList contacts={filteredNames} onDelete={deleteContact} />
   </Container>
 );
 
 const mapStateToProps = state => ({
-  value: state.counter.value,
-  step: state.counter.step,
+  contacts: state.contacts,
+  search: state.search,
+  filteredNames: state.contacts.filter(({ name }) =>
+    name.toLowerCase().includes(state.search.toLowerCase()),
+  ),
 });
 
 const mapDispatchToProps = dispatch => ({
-  onIncrement: value => dispatch(actions.increment(value)),
-  onDecrement: value => dispatch(actions.decrement(value)),
+  addContact: text => dispatch(actions.addContact(text)),
+  denyDouble: text => dispatch(actions.denyDouble(text)),
+  deleteContact: text => dispatch(actions.deleteContact(text)),
+  changeFilter: text => dispatch(actions.changeFilter(text)),
 });
+
+// getFilteredNames = () => {
+//   const { filter, contacts } = this.state;
+//   const normilizeFilter = filter.toLowerCase();
+
+//   return contacts.filter(({ name }) =>
+//     name.toLowerCase().includes(normilizeFilter),
+//   );
+// };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
