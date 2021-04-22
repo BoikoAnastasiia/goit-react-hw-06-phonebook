@@ -1,25 +1,17 @@
 import { v4 as uuidv4 } from 'uuid';
-import types from './contacts-types';
+import { createAction } from '@reduxjs/toolkit';
+
 uuidv4();
 
-export const addContact = text => ({
-  type: types.ADD,
-  payload: { id: uuidv4(), text },
-});
+const addContact = createAction('contacts/add', text => ({
+  payload: {
+    id: uuidv4(),
+    text,
+  },
+}));
 
-export const deleteContact = contactId => ({
-  type: types.DELETE,
-  payload: contactId,
-});
+const deleteContact = createAction('contacts/delete');
 
-export const changeFilter = text => ({
-  type: types.CHANGE_FILTER,
-  payload: text,
-});
+const changeFilter = createAction('contacts/changeFilter');
 
-export const denyDouble = text => ({
-  type: types.CHECK,
-  payload: text,
-});
-
-// export default { addContact, deleteContact, changeFilter, denyDouble };
+export default { addContact, deleteContact, changeFilter };
