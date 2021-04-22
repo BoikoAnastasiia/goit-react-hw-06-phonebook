@@ -1,7 +1,5 @@
 import { createStore, combineReducers } from 'redux';
 import types from '../redux/contacts/contacts-types';
-import { v4 as uuidv4 } from 'uuid';
-uuidv4();
 
 const initialState = {
   contacts: [
@@ -15,13 +13,14 @@ const initialState = {
 const contacts = (state = initialState, { type, payload }) => {
   switch (type) {
     case types.ADD:
-      if (state.contacts.some(name => name.name === payload.name))
-        return alert(`${payload.name} is already in your contacts`);
-      payload.id = uuidv4();
       return [...state, payload];
 
     case types.DELETE:
       return state.filter(({ id }) => id !== payload);
+
+    case types.CHECK:
+      if (state.contacts.some(name => name.name === payload.name))
+        return alert(`${payload.name} is already in your contacts`);
 
     default:
       return state;

@@ -1,22 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Container from './Components/Container';
 import PhoneBookForm from './Components/PhoneBookForm';
 import ContactsList from './Components/ContactsList';
 import Search from './Components/Search';
-import { v4 as uuidv4 } from 'uuid';
-uuidv4();
+import { connect } from 'react-redux';
+import * as actions from '../src/redux/contacts/contacts.actions';
 
-class App extends Component {
-  state = {
-    filter: '',
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
-  };
-
+const App = (addContact, deleteContact) => (
   //   componentDidUpdate(prevProps, prevState) {
   //     if (this.state.contacts !== prevState.contacts) {
   //       localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
@@ -31,35 +21,43 @@ class App extends Component {
   //     }
   //   }
 
-  changeFilter = event => {
-    this.setState({ filter: event.currentTarget.value });
-  };
+  // changeFilter = event => {
+  //   this.setState({ filter: event.currentTarget.value });
+  // };
 
-  getFilteredNames = () => {
-    const { filter, contacts } = this.state;
-    const normilizeFilter = filter.toLowerCase();
+  // getFilteredNames = () => {
+  //   const { filter, contacts } = this.state;
+  //   const normilizeFilter = filter.toLowerCase();
 
-    return contacts.filter(({ name }) =>
-      name.toLowerCase().includes(normilizeFilter),
-    );
-  };
+  //   return contacts.filter(({ name }) =>
+  //     name.toLowerCase().includes(normilizeFilter),
+  //   );
+  // };
 
-  render() {
-    const { filter } = this.state;
-    const filteredNames = this.getFilteredNames();
+  // render() {
+  //   const { filter } = this.state;
+  //   const filteredNames = this.getFilteredNames();
 
-    return (
-      <Container>
-        <PhoneBookForm
-          onSubmit={this.addContact}
-          onAdd={this.addContact}
-          onDouble={this.denyDouble}
-        />
-        <Search value={filter} onChange={this.changeFilter} />
-        <ContactsList contacts={filteredNames} onDelete={this.deleteContact} />
-      </Container>
-    );
-  }
-}
+  // return (
+  <Container>
+    <PhoneBookForm
+      onSubmit={this.addContact}
+      onAdd={this.addContact}
+      onDouble={this.denyDouble}
+    />
+    <Search value={filter} onChange={this.changeFilter} />
+    <ContactsList contacts={filteredNames} onDelete={this.deleteContact} />
+  </Container>
+);
 
-export default App;
+const mapStateToProps = state => ({
+  value: state.counter.value,
+  step: state.counter.step,
+});
+
+const mapDispatchToProps = dispatch => ({
+  onIncrement: value => dispatch(actions.increment(value)),
+  onDecrement: value => dispatch(actions.decrement(value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
