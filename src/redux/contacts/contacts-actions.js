@@ -2,24 +2,24 @@ import { v4 as uuidv4 } from 'uuid';
 import types from './contacts-types';
 uuidv4();
 
-const addContact = text => ({
+export const addContact = text => ({
   type: types.ADD,
   payload: { id: uuidv4(), text },
 });
 
-const deleteContact = contactId => ({
+export const deleteContact = contactId => ({
   type: types.DELETE,
   payload: contactId,
 });
 
-const changeFilter = value => ({
+export const changeFilter = text => ({
   type: types.CHANGE_FILTER,
-  payload: value,
+  payload: text,
 });
 
-const denyDouble = text => ({
+export const denyDouble = text => ({
   type: types.CHECK,
   payload: text,
 });
 
-export default { addContact, deleteContact, changeFilter, denyDouble };
+// export default { addContact, deleteContact, changeFilter, denyDouble };
