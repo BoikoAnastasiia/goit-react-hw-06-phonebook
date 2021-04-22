@@ -3,39 +3,16 @@ import Container from './Components/Container';
 import PhoneBookForm from './Components/PhoneBookForm';
 import ContactsList from './Components/ContactsList';
 import Search from './Components/Search';
-import { connect } from 'react-redux';
-import * as actions from './redux/contacts/contacts-actions';
 
-const App = (addContact, deleteContact, denyDouble, changeFilter, search) => (
+const App = (
   <Container>
-    <PhoneBookForm
-      onSubmit={addContact}
-      onAdd={addContact}
-      onDouble={denyDouble}
-    />
-    <Search value={search} onChange={changeFilter} />
-    <ContactsList
-      contacts={search.filter(({ name }) =>
-        name.toLowerCase().includes(search.toLowerCase()),
-      )}
-      onDelete={deleteContact}
-    />
+    <PhoneBookForm />
+    <Search />
+    <ContactsList />
   </Container>
 );
 
-const mapStateToProps = state => ({
-  contacts: state.contacts,
-  search: state.search,
-});
-
-const mapDispatchToProps = dispatch => ({
-  addContact: text => dispatch(actions.addContact(text)),
-  denyDouble: text => dispatch(actions.denyDouble(text)),
-  deleteContact: text => dispatch(actions.deleteContact(text)),
-  changeFilter: text => dispatch(actions.changeFilter(text)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
 // state.contacts.some(name => name.name === payload.name)
 //   ? alert(`${payload.name} is already in your contacts`)
 //   : null;
