@@ -4,11 +4,13 @@ import PhoneBookForm from './Components/PhoneBookForm';
 import ContactsList from './Components/ContactsList';
 import Search from './Components/Search';
 
-const App = (
+const App = () => (
   <Container>
-    <PhoneBookForm />
-    <Search />
-    <ContactsList />
+    <>
+      <PhoneBookForm />
+      <Search />
+      <ContactsList />
+    </>
   </Container>
 );
 
