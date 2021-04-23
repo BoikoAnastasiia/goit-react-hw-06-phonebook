@@ -1,5 +1,6 @@
 import styles from './Search.module.css';
-
+import { connect } from 'react-redux';
+import contactsActions from '../../redux/contacts/contacts-actions';
 import propTypes from 'prop-types';
 
 const Search = ({ value, onChange }) => (
@@ -21,4 +22,12 @@ Search.propTypes = {
   onChange: propTypes.func.isRequired,
 };
 
-export default Search;
+const mapStateToProps = state => ({
+  value: state.filter,
+});
+
+const mapDispatchToProps = dispatch => ({
+  onChange: e => dispatch(contactsActions.changeFilter(e.target.value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);
