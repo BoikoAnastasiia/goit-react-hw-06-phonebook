@@ -61,7 +61,7 @@ class PhoneBookForm extends Component {
 }
 
 const mapStateToProps = state => ({
-  contacts: state.contacts,
+  contacts: state.contacts.contacts,
 });
 
 const mapDispatchToProps = dispatch => ({
