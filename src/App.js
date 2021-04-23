@@ -13,6 +13,3 @@ const App = (
 );
 
 export default App;
-// state.contacts.some(name => name.name === payload.name)
-//   ? alert(`${payload.name} is already in your contacts`)
-//   : null;
