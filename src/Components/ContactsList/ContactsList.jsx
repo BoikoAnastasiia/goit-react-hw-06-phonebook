@@ -21,20 +21,14 @@ const ContactsList = ({ contacts, onDelete }) => (
   </ul>
 );
 
-const getVisibleContacts = (contacts, filter) => {
+const mapStateToProps = state => {
+  const { contacts, filter } = state.stateContacts;
   const normalizedFilter = filter.toLowerCase();
-  return contacts.filter(({ name }) =>
+  const visibleContacts = contacts.filter(({ name }) =>
     name.toLowerCase().includes(normalizedFilter),
   );
+  return { contacts: visibleContacts };
 };
-
-const mapStateToProps = ({ stateContacts: { contacts, filter } }) => ({
-  contacts: getVisibleContacts(contacts, filter),
-});
-
-// const mapStateToProps = state => ({
-//   contacts: getVisibleContacts(state.contacts, state.filter),
-// });
 
 const mapDispatchToProps = dispatch => ({
   onDelete: id => dispatch(contactsActions.deleteContact(id)),

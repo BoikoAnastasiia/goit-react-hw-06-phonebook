@@ -3,10 +3,11 @@ import { createAction } from '@reduxjs/toolkit';
 
 uuidv4();
 
-const addContact = createAction('contacts/add', text => ({
+const addContact = createAction('contacts/add', ({ name, number }) => ({
   payload: {
     id: uuidv4(),
-    text,
+    name,
+    number,
   },
 }));
 
